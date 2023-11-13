@@ -1,0 +1,19 @@
+/* Common hover effect class */
+.active-link {
+    /* background-color: #417193; */
+    color: #244b5d!important;
+    /* font-size: 20px; */
+    font-weight: 500;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Apply hover effect to multiple classes */
+  .navbar-brand:hover, .dropdown-toggle:hover, .other-class:hover {
+    /* Use the common hover effect class */
+    /* background-color: #417193; */
+    color: white!important;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  

@@ -1,0 +1,12 @@
+.no-hover-effect {
+    pointer-events: none; /* Disable mouse events, including hover */
+    cursor: default; /* Change cursor to default, indicating that it's not clickable */
+}
+.description-limit {
+    max-height: 5 * 1.2em; /* Adjust this value for the desired number of lines (e.g., 5 lines) */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Adjust this value for the desired number of lines (e.g., 5 lines) */
+    -webkit-box-orient: vertical;
+}
