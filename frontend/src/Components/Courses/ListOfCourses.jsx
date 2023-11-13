@@ -29,11 +29,10 @@ const ListOfCourses = () => {
   }
   function deleteCourse(id) {
 
-    const confirmation = window.confirm("Do you want to delete this student?");
-    if (confirmation) {
+    if (window.confirm("Do you want to delete this student?")) {
       courseService.deleteCourse(id)
         .then(() => {
-          window.alert("Student deleted successfully")
+          window.alert("Course deleted successfully")
           setCourses(courses.filter(course => course.id !== id));
           navigate('/courses');
         })
@@ -46,14 +45,18 @@ const ListOfCourses = () => {
 
   function enrollOrUnenroll(sid, cid) {
     if (studentCoursesIds && studentCoursesIds.includes(cid)) {//unenroll
-      studentService.unenrollCourse(sid, cid)
-        .then(res => {
-          navigate('/students/view/' + sid);
-        })
-        .catch(error => console.log('error :' + error));
-    } else {//enroll
+      if (window.confirm("do you want to unenroll this course?")) {
+        studentService.unenrollCourse(sid, cid)
+          .then(res => {
+            window.alert("course unenrolled successfully")
+            navigate('/students/view/' + sid);
+          })
+          .catch(error => console.log('error :' + error));
+      }
+    } else if (window.confirm("do you want to enroll this course")) {//enroll
       studentService.enrollCourse(sid, cid)
         .then(res => {
+          window.alert("course enrolled successfully")
           navigate('/students/view/' + sid);
         })
         .catch(error => console.log('error :' + error));
@@ -67,7 +70,6 @@ const ListOfCourses = () => {
       </Helmet>
       <div style={{ flex: '2', marginRight: '5rem' }}>
         <h3>list of Courses</h3>
-        {console.log(studentCoursesIds)}
         <table className="table table-striped">
           <thead>
             <tr style={{ textAlign: 'center' }}>
