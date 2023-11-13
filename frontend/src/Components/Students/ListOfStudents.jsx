@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StudentService from '../../Service/StudentService';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const ListOfStudents = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const ListOfStudents = () => {
   }, []);
 
   function viewCourses(id) {
-    navigate('/students/view/'+id)
+    navigate('/students/view/' + id)
   }
 
   function editStudentDetails(sid) {
@@ -44,15 +45,18 @@ const ListOfStudents = () => {
 
   return (
     <div className='container ' style={{ display: 'flex' }}>
+      <Helmet>
+        <title>Students</title>
+      </Helmet>
       <div style={{ flex: '2', marginRight: '5rem' }}>
-      {isLoading && <div className="d-flex justify-content-center">
-                    <div className="spinner-border" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                    {/* <div className="spinner-grow" style={{ width: '3rem;', height: '3rem;' }} role="status">
+        {isLoading && <div className="d-flex justify-content-center">
+          <div className="spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+          {/* <div className="spinner-grow" style={{ width: '3rem;', height: '3rem;' }} role="status">
                         <span className="sr-only">Loading...</span>
                     </div> */}
-                </div>}
+        </div>}
         <h3>list of Students</h3>
         <table className="table table-striped">
           <thead>
@@ -68,9 +72,9 @@ const ListOfStudents = () => {
             {
               students.map((student, index) => (
                 <tr key={student.id} style={{ textAlign: 'center' }}>
-                  <td onClick={()=>{navigate('/students/view/'+student.id)}}>{index + 1}</td>
-                  <td onClick={()=>{navigate('/students/view/'+student.id)}}>{student.name}</td>
-                  <td onClick={()=>{navigate('/students/view/'+student.id)}}>{student.emailId}</td>
+                  <td onClick={() => { navigate('/students/view/' + student.id) }}>{index + 1}</td>
+                  <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.name}</td>
+                  <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.emailId}</td>
                   <td>
                     <button
                       type="button"
@@ -93,7 +97,7 @@ const ListOfStudents = () => {
           </tbody>
         </table>
       </div>
-      </div>
+    </div>
   )
 }
 

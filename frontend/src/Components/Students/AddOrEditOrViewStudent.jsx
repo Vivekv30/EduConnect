@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../Students/addOrEditOrViewStudent.css'
 import studentService from '../../Service/StudentService';
+import { Helmet } from 'react-helmet';
 const AddOrEditOrViewStudent = ({ mode }) => {
     let { sid } = useParams();
     const navigate = useNavigate();
@@ -128,6 +129,11 @@ const AddOrEditOrViewStudent = ({ mode }) => {
     }
     return (
         <section>
+            <Helmet>
+                <title>
+                    {mode === 'add' ? 'Add Student' : mode === 'edit' ? 'Edit Student' : 'View Student'}
+                </title>
+            </Helmet>
             <div className="container py-5">
                 {isLoading && <div className="d-flex justify-content-center">
                     <div className="spinner-border" role="status">

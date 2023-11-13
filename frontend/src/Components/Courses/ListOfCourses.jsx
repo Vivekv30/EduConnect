@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import courseService from '../../Service/CourseService'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import studentService from '../../Service/StudentService';
+import { Helmet } from 'react-helmet';
 
 const ListOfCourses = () => {
 
@@ -61,6 +62,9 @@ const ListOfCourses = () => {
 
   return (
     <div className='container' style={{ display: 'flex' }}>
+      <Helmet>
+        <title>Courses</title>
+      </Helmet>
       <div style={{ flex: '2', marginRight: '5rem' }}>
         <h3>list of Courses</h3>
         {console.log(studentCoursesIds)}

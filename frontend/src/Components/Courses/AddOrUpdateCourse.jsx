@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import courseService from '../../Service/CourseService';
+import { Helmet } from 'react-helmet';
 
 const AddOrUpdateCourse = () => {
     const { cid } = useParams();
@@ -35,7 +36,7 @@ const AddOrUpdateCourse = () => {
                     console.error('Error fetching course:', error);
                 });
         } else {
-            setCourse({
+            setCourse({//once course is added these fileds should be empty else previous course details displayed in fields
                 name: '',
                 duration: '',
                 description: '',
@@ -94,6 +95,11 @@ const AddOrUpdateCourse = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>
+                    {cid === '_add' ? 'Add Course' :  'Edit Course' }
+                </title>
+            </Helmet>
             <div className="container">
                 <div className="row d-flex justify-content-center">
                     <div className="col-lg-8">

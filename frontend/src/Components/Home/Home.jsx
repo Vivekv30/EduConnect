@@ -1,9 +1,13 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
     <div className="container mt-5">
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <div className="row justify-content-center">
         <div className="col-md-8 text-center">
           <h1>Welcome to Your Learning Portal</h1>
