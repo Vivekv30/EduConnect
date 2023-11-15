@@ -48,8 +48,7 @@ const AddOrEditOrViewStudent = ({ mode }) => {
         const newStudent = { ...student };
 
         console.log(newStudent);
-        const confirmation = window.confirm('do you want to save stduent')
-        if (confirmation) {
+        if (window.confirm('do you want to save student')) {
             setIsLoading(true);
             studentService.addStudent(newStudent)
                 .then(res => {
@@ -71,8 +70,7 @@ const AddOrEditOrViewStudent = ({ mode }) => {
     const handleEditStudent = () => {
         const updatedStudent = { ...student };
         console.log(updatedStudent)
-        const confirmation = window.confirm('do you want to update stduent')
-        if (confirmation) {
+        if (window.confirm('do you want to update student')) {
             setIsLoading(true)
             studentService.updateStudent(sid, updatedStudent)
                 .then(res => {
@@ -280,7 +278,7 @@ const AddOrEditOrViewStudent = ({ mode }) => {
                             </div>
 
                             {student.courses.map((course) => (
-                                <div className="col-lg-3" key={course.id}>
+                                <div className="col-lg-4" key={course.id}>
                                     <div className="card" style={{ margin: '1rem', padding: '0px' }}>
                                         <img width='100%' height='100%' src={course.avatar} className="card-img-top" alt="..." />
                                         <div className="card-body">

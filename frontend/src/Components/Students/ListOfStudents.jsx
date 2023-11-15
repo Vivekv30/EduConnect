@@ -20,13 +20,6 @@ const ListOfStudents = () => {
       });
   }, []);
 
-  function viewCourses(id) {
-    navigate('/students/view/' + id)
-  }
-
-  function editStudentDetails(sid) {
-    navigate(`/students/edit/${sid}`)
-  }
   function deleteStudent(id) {
     const confirmation = window.confirm("Do you want to delete this student?");
 
@@ -64,8 +57,9 @@ const ListOfStudents = () => {
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Enrolled Courses</th>
-              <th scope="col">Actions</th>
+              <th scope="col">Mobile No.</th>
+              <th scope="col">gender</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -75,19 +69,9 @@ const ListOfStudents = () => {
                   <td onClick={() => { navigate('/students/view/' + student.id) }}>{index + 1}</td>
                   <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.name}</td>
                   <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.emailId}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-info"
-                      onClick={() => viewCourses(student.id)}
-                    >
-                      View
-                    </button>
-                  </td>
+                  <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.mobile}</td>
+                  <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.gender}</td>
                   <td className='d-flex align-items-center justify-content-around'>
-                    <button type="button" className="btn btn-warning"
-                      onClick={() => editStudentDetails(student.id)}> Edit </button>
-
                     <button type="button" className="btn btn-danger"
                       onClick={() => deleteStudent(student.id)} > Delete </button>
                   </td>

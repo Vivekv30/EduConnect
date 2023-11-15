@@ -183,7 +183,7 @@ const AddOrUpdateCourse = () => {
                                             className="btn btn-primary px-3 py-2"
                                             onClick={addOrModifyCourse}
                                         >
-                                            {cid === '_add' || cid === undefined ? 'Add ' : 'Modify '} Course
+                                        Save Course
                                         </button>
                                         <button
                                             type="button"
