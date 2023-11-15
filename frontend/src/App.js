@@ -8,6 +8,7 @@ import ListOfCourses from './Components/Courses/ListOfCourses';
 import AddOrEditOrViewStudent from './Components/Students/AddOrEditOrViewStudent';
 import AddOrUpdateCourse from './Components/Courses/AddOrUpdateCourse';
 import Home from './Components/Home/Home';
+import InvalidPath from './Components/InvalidPath';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       
           <Route path="/courses" element={<ListOfCourses/>}/>
           <Route path="/courses/:cid" element={<AddOrUpdateCourse/>}/>
+          <Route path='*' element={<InvalidPath/>}/>
         </Routes>
       </Router>
     </div>
