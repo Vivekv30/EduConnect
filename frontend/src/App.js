@@ -19,13 +19,13 @@ function App() {
           <Route path="/students" element={<ListOfStudents />} />
           
           <Route path="/students/add" element={<AddOrEditOrViewStudent mode={'add'} />} />
-          <Route path='/students/edit/:sid' element={<AddOrEditOrViewStudent mode={'edit'}/>}/>
+          <Route path="/students/edit/:sid" element={<AddOrEditOrViewStudent mode={'edit'}/>}/>
           <Route path="/students/view/:sid" element={<AddOrEditOrViewStudent mode={'view'} />} />
 
-          <Route path='/students/:sid/courses' element={<ListOfCourses/>}/>
+          <Route path="/students/:sid/courses" element={<ListOfCourses/>}/>
       
-          <Route path='/courses' element={<ListOfCourses/>}/>
-          <Route path='/courses/:cid' element={<AddOrUpdateCourse/>}/>
+          <Route path="/courses" element={<ListOfCourses/>}/>
+          <Route path="/courses/:cid" element={<AddOrUpdateCourse/>}/>
         </Routes>
       </Router>
     </div>
