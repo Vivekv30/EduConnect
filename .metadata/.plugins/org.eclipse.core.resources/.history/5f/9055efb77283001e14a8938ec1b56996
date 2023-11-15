@@ -20,7 +20,7 @@ import com.stdtc.Course.Course;
 import com.stdtc.Course.CourseService;
 @RestController
 @RequestMapping("/springToolSuite/api/v4/Students")
-//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
 
 	private StudentService studentService;
