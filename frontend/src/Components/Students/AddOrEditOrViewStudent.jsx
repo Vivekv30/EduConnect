@@ -14,7 +14,7 @@ const AddOrEditOrViewStudent = ({ mode }) => {
         mobile: '',
         gender: '',
         address: '',
-        avatar: null,
+        avatar: '',
         courses: [],
     });
 
@@ -38,7 +38,7 @@ const AddOrEditOrViewStudent = ({ mode }) => {
                 mobile: '',
                 gender: '',
                 address: '',
-                avatar: null,
+                avatar: '',
                 courses: []
             })
         }
@@ -107,7 +107,7 @@ const AddOrEditOrViewStudent = ({ mode }) => {
             reader.onload = (e) => {
 
                 const base64Image = e.target.result; // e.target.result contains the base64-encoded image data
-                const imageData = base64Image.replace(/^data:image\/(png|jpeg);base64,/, ''); //remove the base64-encoded image data
+                const imageData = base64Image.replace(/^data:image\/(png|jpeg|webp);base64,/, ''); //remove the base64-encoded image data
                 setStudent({ ...student, avatar: imageData });//set image data to avatar
             };
 
@@ -223,7 +223,7 @@ const AddOrEditOrViewStudent = ({ mode }) => {
                                             readOnly={mode === 'view'}
                                         >
                                             {mode === 'view' ? (
-                                                <option value={student.gender}>{student.gender}</option>
+                                                <option style={{display:'none'}} value={student.gender}>{student.gender}</option>
                                             ) : (
                                                 <>
                                                     <option value="null">Select</option>
@@ -252,7 +252,7 @@ const AddOrEditOrViewStudent = ({ mode }) => {
                                         </div>
                                     ) : (
                                         <div className="d-flex justify-content-between mt-3">
-                                            <button type="submit" className="btn btn-primary px-3 py-2">Save</button>
+                                            <button type="submit" className="btn btn-primary px-3 py-2">{mode==='edit'?'Update':'Save'}</button>
                                             <button className="btn btn-secondary px-3 py-2 ml-2" onClick={cancel}>Cancel</button>
                                         </div>
                                     )}
