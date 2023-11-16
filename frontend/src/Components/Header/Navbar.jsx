@@ -10,9 +10,15 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="sticky-top navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#e3f2fd', paddingLeft: '2rem' }}>
-            <NavLink to="/" className={`navbar-brand hover-effect ${isActive('/') ? 'active-link' : ''}`} style={{padding:'5px'}}>
-                Edu Connect
+        <nav className="sticky-top navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#e3f2fd', paddingLeft: '0rem' }}>
+            <NavLink to="/" className={`navbar-brand hover-effect ${isActive('/') ? 'active-link' : ''}`} style={{padding:'0px'}}>
+            <img
+                src={`${process.env.PUBLIC_URL}/educonnectlogo2.png`}
+                alt="Learning Portal Illustration"
+            className="img-fluid"
+            style={{margin:'-15px -12px -15px 0px',width:'80px'}}
+          />
+          EduConnect
             </NavLink>
             <div className={`btn-group ${isActive('/students') || isActive('/students/_add') ? 'active-link' : ''}`} style={{ marginLeft: '10px' }}>
                 <button className="btn btn-secondary hover-effect dropdown-toggle" style={{ backgroundColor: '#e3f2fd', color: 'black', border: 'none' }} type="button" id="defaultDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">

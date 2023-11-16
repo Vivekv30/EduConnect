@@ -16,10 +16,16 @@ const Home = () => {
             provides a seamless experience for both students and administrators.
           </p>
           <img
+                src={`${process.env.PUBLIC_URL}/educonnectlogo2.png`}
+                alt="Learning Portal Illustration"
+            className="img-fluid"
+            style={{margin:'-40px',width:'600px'}}
+          />
+          {/* <img
             src="https://images.pexels.com/photos/4778621/pexels-photo-4778621.jpeg"
             alt="Learning Portal Illustration"
             className="img-fluid mt-4 mb-4"
-          />
+          /> */}
           <div className="row justify-content-center">
             <div className="col-md-6">
               <div className="card mb-4">
