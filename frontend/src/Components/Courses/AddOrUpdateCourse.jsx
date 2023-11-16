@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 const AddOrUpdateCourse = () => {
     const { cid } = useParams();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false)
     const [course, setCourse] = useState({
         name: '',
         duration: '',
@@ -19,9 +20,11 @@ const AddOrUpdateCourse = () => {
     useEffect(() => {
         if (cid !== '_add') {
             // If you have an ID then it will edit course data and course data will be fetched
+            setIsLoading(true)
             courseService
                 .getCourseById(cid)
                 .then((res) => {
+                    setIsLoading(false)
                     if (res.data === null) {
                         // If data is null based on id then display a popup message and navigate to courses page
                         window.alert('No course found with this ID.');
@@ -47,10 +50,10 @@ const AddOrUpdateCourse = () => {
     }, [cid, navigate]);
 
     function ChangeHandler(e) {// this is one of simple way to add value in respective variable of the object
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setCourse({ ...course, [name]: value });
     }
-    
+
     const cancel = () => {
         navigate('/courses');
     };
@@ -60,10 +63,12 @@ const AddOrUpdateCourse = () => {
 
             const newCourse = { ...course };
             if (window.confirm('do you want to add this course?')) {
+                setIsLoading(true)
                 courseService
                     .addCourse(newCourse)
                     .then((res) => {
-                        console.log(res.data)
+                        setIsLoading(false)
+                        // console.log(res.data)
                         window.alert('Course added successfully');
                         navigate('/courses');
                     })
@@ -73,14 +78,14 @@ const AddOrUpdateCourse = () => {
                     });
             }
         } else {
-
             const updatedCourse = { ...course };
-            console.log(updatedCourse);
-            const confirmation = window.confirm('Do you want to update this course?');
-            if (confirmation) {
+            // console.log(updatedCourse);
+            if (window.confirm('Do you want to update this course?')) {
+                setIsLoading(true)
                 courseService
                     .updateCourse(cid, updatedCourse)
                     .then((res) => {
+                        setIsLoading(false)
                         window.alert('Course updated successfully');
                         console.log(res.data)
                         navigate('/courses');
@@ -97,11 +102,19 @@ const AddOrUpdateCourse = () => {
         <div>
             <Helmet>
                 <title>
-                    {cid === '_add' ? 'Add Course' :  'Edit Course' }
+                    {cid === '_add' ? 'Add Course' : 'Edit Course'}
                 </title>
             </Helmet>
             <div className="container">
                 <div className="row d-flex justify-content-center">
+                    {isLoading && <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                        {/* <div className="spinner-grow" style={{ width: '3rem;', height: '3rem;' }} role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div> */}
+                    </div>}
                     <div className="col-lg-8">
                         <div className="card mb-4">
                             <div className="card-body">
@@ -183,7 +196,7 @@ const AddOrUpdateCourse = () => {
                                             className="btn btn-primary px-3 py-2"
                                             onClick={addOrModifyCourse}
                                         >
-                                        Save Course
+                                            Save Course
                                         </button>
                                         <button
                                             type="button"

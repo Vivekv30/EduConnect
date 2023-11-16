@@ -9,14 +9,17 @@ const ListOfCourses = () => {
   const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isLoading,setIsLoading] = useState(false)
   const studentCoursesIds = location.state && location.state.studentCoursesIds;
 
   const { sid } = useParams();
 
   useEffect(
     () => {
+      setIsLoading(true)
       courseService.getCourses()
         .then(res => {
+          setIsLoading(false)
           setCourses(res.data)
 
         })
@@ -34,7 +37,7 @@ const ListOfCourses = () => {
         .then(() => {
           window.alert("Course deleted successfully")
           setCourses(courses.filter(course => course.id !== id));
-          navigate('/courses');
+          navigate('/courses');// Navigate to the courses page
         })
         .catch((error) => {
           console.error('Error deleting course:', error);
@@ -46,16 +49,20 @@ const ListOfCourses = () => {
   function enrollOrUnenroll(sid, cid) {
     if (studentCoursesIds && studentCoursesIds.includes(cid)) {//unenroll
       if (window.confirm("do you want to unenroll this course?")) {
+        setIsLoading(true)
         studentService.unenrollCourse(sid, cid)
           .then(res => {
+            setIsLoading(false)
             window.alert("course unenrolled successfully")
-            navigate('/students/view/' + sid);
+            navigate('/students/view/' + sid);// Navigate to the perticular student page
           })
           .catch(error => console.log('error :' + error));
       }
     } else if (window.confirm("do you want to enroll this course")) {//enroll
+      setIsLoading(true)
       studentService.enrollCourse(sid, cid)
         .then(res => {
+          setIsLoading(false)
           window.alert("course enrolled successfully")
           navigate('/students/view/' + sid);
         })
@@ -69,6 +76,14 @@ const ListOfCourses = () => {
         <title>Courses</title>
       </Helmet>
       <div style={{ flex: '2', marginRight: '5rem' }}>
+      {isLoading && <div className="d-flex justify-content-center">
+          <div className="spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+          {/* <div className="spinner-grow" style={{ width: '3rem;', height: '3rem;' }} role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div> */}
+        </div>}
         <h3>list of Courses</h3>
         <table className="table table-striped">
           <thead>

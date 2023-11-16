@@ -280,14 +280,25 @@ const AddOrEditOrViewStudent = ({ mode }) => {
                             {student.courses.map((course) => (
                                 <div className="col-lg-4" key={course.id}>
                                     <div className="card" style={{ margin: '1rem', padding: '0px' }}>
-                                        <img width='100%' height='100%' src={course.avatar} className="card-img-top" alt="..." />
+                                        <div
+                                            className="card-img-top"
+                                            style={{
+                                                width: '100%',
+                                                height: '200px',
+                                                backgroundImage: `url(${course.avatar})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                            }}
+                                            alt="Course Image"
+                                        ></div>
+                                        {/* <img width='100%' height='100%' src={course.avatar} className="card-img-top" alt="..." /> */}
                                         <div className="card-body">
-                                            <div className='d-flex'>
-                                                <h5 className='card-title'>Name :</h5>{course.name ? <p className="px-3">{course.name}</p> : null}
-                                            </div>
+
                                             <div className='d-flex'>
                                                 <h5 className="card-title">Trainer : </h5>
-                                                <p className="px-3">{course.teacher && course.teacher.name ? course.teacher.name : null}</p>
+                                                <p className="px-3">{course.teacher && course.teacher.name ?
+                                                    course.teacher.name.charAt(0).toUpperCase() + course.teacher.name.slice(1)
+                                                    : null}</p>
                                             </div>
                                             <div className='text-justify'>
                                                 <h5>Description :</h5>

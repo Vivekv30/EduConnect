@@ -21,9 +21,8 @@ const ListOfStudents = () => {
   }, []);
 
   function deleteStudent(id) {
-    const confirmation = window.confirm("Do you want to delete this student?");
-
-    if (confirmation) {
+    
+    if (window.confirm("Do you want to delete this student?")) {
       StudentService.deleteStudent(id)
         .then(() => {
           window.alert("Student deleted successfully")
