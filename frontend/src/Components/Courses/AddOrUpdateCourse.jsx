@@ -196,7 +196,7 @@ const AddOrUpdateCourse = () => {
                                             className="btn btn-primary px-3 py-2"
                                             onClick={addOrModifyCourse}
                                         >
-                                            Save Course
+                                            {cid==='_add'?'Save ':'Update'}Course
                                         </button>
                                         <button
                                             type="button"
