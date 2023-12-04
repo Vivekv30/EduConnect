@@ -9,7 +9,6 @@ import AddOrEditOrViewStudent from './Components/Students/AddOrEditOrViewStudent
 import AddOrUpdateCourse from './Components/Courses/AddOrUpdateCourse';
 import Home from './Components/Home/Home';
 import InvalidPath from './Components/InvalidPath';
-
 function App() {
   return (
     <div className="App">
@@ -18,7 +17,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/students" element={<ListOfStudents />} />
-          
           <Route path="/students/add" element={<AddOrEditOrViewStudent mode={'add'} />} />
           <Route path="/students/edit/:sid" element={<AddOrEditOrViewStudent mode={'edit'}/>}/>
           <Route path="/students/view/:sid" element={<AddOrEditOrViewStudent mode={'view'} />} />

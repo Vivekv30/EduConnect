@@ -1,0 +1,8 @@
+@media screen and (max-width: 768px) {
+    .custom-d-flex input {
+      display: flex;
+      flex-direction: column;
+      /* width: 100%; */
+      /* margin-bottom: 10px; Adjust margin as needed */
+    }
+  }
