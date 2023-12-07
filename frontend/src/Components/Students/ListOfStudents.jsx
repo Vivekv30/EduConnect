@@ -18,6 +18,11 @@ const ListOfStudents = () => {
   //--------------------------
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  //sorting students
+  const [sortByContent,setSortByContent] = useState('');
+  // const [sortByName, setSortByName] = useState(''); // 'asc', 'desc', or 'default'
+  // const [sortByMobile, setSortByMobile] = useState(''); // 'lowToHigh', 'highToLow', or 'default'
+  // const [sortByRecent, setSortByRecent] = useState(''); // 'first', 'last', or 'default'
 
   //useeffect for fetching students
   useEffect(() => {
@@ -37,7 +42,7 @@ const ListOfStudents = () => {
 
   //useeffect for filter the students based on the dependecies which we specified
   useEffect(() => {
-    let filteredStudents = [];
+    let filteredStudents = students.map(student => student.id);
     if (uSearch !== '') { //filter the students when uSearch has a value
       filteredStudents = students.filter(student => {
         const lowerCaseUSearch = uSearch.toLowerCase();
@@ -99,6 +104,35 @@ const ListOfStudents = () => {
       setFilteredStudentIds(students.map(student => student.id))
     }
   }, [uSearch, nameSearch, mailSearch, mobileSearch, genderSearch, students, attrName, attrValue]);
+
+  //useeffect for sort students based on the dependecies which we specified
+  useEffect(() => {
+    let sortedStudents = [...students];
+    // Sorting by name
+    if (sortByContent === 'name_asc') {
+      sortedStudents.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortByContent === 'name_desc') {
+      sortedStudents.sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    // Sorting by mobile
+    if (sortByContent === 'Mobile_lowToHigh') {
+      sortedStudents.sort((a, b) => a.mobile.localeCompare(b.mobile));
+    } else if (sortByContent === 'Mobile_highToLow') {
+      sortedStudents.sort((a, b) => b.mobile.localeCompare(a.mobile));
+    }
+
+    // Sorting by recent
+    if (sortByContent === 'Recent_first') {
+      sortedStudents = [...students]
+      sortedStudents.reverse(); // Reverse the order to show recent first
+    }
+    // else{
+    //   sortedStudents = [...students];
+    // }
+    console.log(sortedStudents)
+    setFilteredStudentIds(sortedStudents.map(student => student.id));
+  }, [students, sortByContent])
 
   //delete student based on id
   function deleteStudent(id) {
@@ -199,16 +233,18 @@ const ListOfStudents = () => {
             <div className="d-flex">
               <div className="dropdown-center">
                 <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  sort by
+                  Sort By
                 </button>
                 <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="/">Default</a></li>
-                  <li><a className="dropdown-item" href="/">Name</a></li>
-                  <li><a className="dropdown-item" href="/">Email</a></li>
-                  <li><a className="dropdown-item" href="/">Mobile</a></li>
-                  <li><a className="dropdown-item" href="/">Gender</a></li>
+                  <li><button className="dropdown-item" onClick={() => setSortByContent('last')}>Default</button></li>
+                  <li><button className="dropdown-item" onClick={() => setSortByContent('name_asc')}>Name (A-Z)</button></li>
+                  <li><button className="dropdown-item" onClick={() => setSortByContent('name_desc')}>Name (Z-A)</button></li>
+                  <li><button className="dropdown-item" onClick={() => setSortByContent('Mobile_lowToHigh')}>Mobile (Low to High)</button></li>
+                  <li><button className="dropdown-item" onClick={() => setSortByContent('Mobile_highToLow')}>Mobile (High to Low)</button></li>
+                  <li><button className="dropdown-item" onClick={() => setSortByContent('Recent_first')}>Recent First</button></li>
                 </ul>
               </div>
+
               <div className="input-group mb-3">
                 <span className="input-group-text">
                   <i className="fas fa-search"></i>
@@ -266,22 +302,27 @@ const ListOfStudents = () => {
               <td></td>
             </tr>
             {
-              students.map((student, index) => {
+              filteredStudentIds.map((studentId, index) => {
+                const student = students.find(student => student.id === studentId);
+                if (student) {
+                  return (
+                    <tr key={student.id} style={{ textAlign: 'center' }}>
+                      <td onClick={() => navigate('/students/view/' + student.id)}>{index + 1}</td>
+                      <td onClick={() => navigate('/students/view/' + student.id)}>{student.name}</td>
+                      <td onClick={() => navigate('/students/view/' + student.id)}>{student.emailId}</td>
+                      <td onClick={() => navigate('/students/view/' + student.id)}>{student.mobile}</td>
+                      <td onClick={() => navigate('/students/view/' + student.id)}>{student.gender}</td>
+                      <td className='d-flex align-items-center justify-content-around'>
+                        <button type="button" className="btn btn-danger" onClick={() => deleteStudent(student.id)}> Delete </button>
+                      </td>
+                    </tr>
+                  );
+                } else {
+                  return null;
+                }
+              })
+            }
 
-                return filteredStudentIds.includes(student.id) && ( // Check if the student is present in filteredStudentIds
-                  <tr key={student.id} style={{ textAlign: 'center' }}>
-                    <td onClick={() => { navigate('/students/view/' + student.id) }}>{index + 1}</td>
-                    <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.name}</td>
-                    <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.emailId}</td>
-                    <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.mobile}</td>
-                    <td onClick={() => { navigate('/students/view/' + student.id) }}>{student.gender}</td>
-                    <td className='d-flex align-items-center justify-content-around'>
-                      <button type="button" className="btn btn-danger"
-                        onClick={() => deleteStudent(student.id)} > Delete </button>
-                    </td>
-                  </tr>
-                )
-              })}
           </tbody>
         </table>
       </div>
